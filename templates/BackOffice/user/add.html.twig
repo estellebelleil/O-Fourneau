@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle utilisateur{% endblock %}
+
+{% block main %}
+    <h1>Crée un nouvelle utilisateur</h1>
+
+   {{ form_start(form) }}
+{{ form_row(form.name) }}
+{{ form_row(form.email) }}
+{# {{ form_row(form.password) }} #}
+
+{{ form_row(form.roles) }}
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('user_list') }}"> Retour à la liste des utilisateurs</a>
+
+{% endblock %}
+ 

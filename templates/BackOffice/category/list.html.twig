@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Categories{% endblock %}
+
+{% block main %}
+<br>
+    <h1 class="text-center">Liste des catégories</h1>
+<br>
+<br>
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Nom</th>
+                <th>Actions</th>
+           </tr>
+        </thead>
+        <tbody>
+        
+        {% for category in categories %}
+            <tr>
+                
+                <td>{{ category.name }}</td>
+                <td>
+                    <a href="{{ path('category_show', {'id': category.id})}}">
+                    <img src="{{ asset ('docs/images/show.png') }}" alt="Voir" width="30px" ></a>
+
+                    <a href="{{ path('category_edit', {'id': category.id})}}">
+                    <img src="{{ asset ('docs/images/edit.png') }}" alt="Modifier" ></a>
+                    
+                </td>
+          
+        {% else %}
+            <tr>
+                <td colspan="3">pas de catégorie trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('category_add') }}">
+    <img src="{{ asset ('docs/images/plus.png') }}" alt="Addcategory" height="30px" width="30px"></a>
+    {# <a href="{{ path('main_back') }}">Retour à la page d'accueil du BackOffice</a> #}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre à jour à jour un utilisateur{% endblock %}
+
+{% block main %}
+    <h1>Màj Utilisateurs</h1>
+
+    {# On inclut le formulaire qui va s'afficher dans la vue #}
+    {{ form_start(form) }}
+{{ form_row(form.name) }}
+{{ form_row(form.email) }}
+{{ form_row(form.roles) }}
+
+    {{ form_end(form) }}
+    
+   
+ 
+
+    {# <a href="{{ path('user_list') }}">Retour à la liste des utilisateurs</a> #}
+{% endblock %}

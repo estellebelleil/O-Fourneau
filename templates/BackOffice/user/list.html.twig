@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block main %}
+<br>
+    <h1 class="text-center">Liste des utilisateurs</h1>
+<br>
+<br>
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Nom</th>
+                <th>E-mail</th>
+                <th>Roles</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+               
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+             
+                {% if user.roles[0] == "ROLE_ADMIN" %}
+                    <td>Administrateur</td>
+                {% elseif user.roles[0] == "ROLE_MANAGER"%}
+                    <td>Modérateur</td>
+                {% else %}
+                    <td>Utilisateur</td>
+                {% endif %}
+                
+               <td>
+                    {# <a href="{{ path('user_show', {'id': user.id})}}">Voir</a> #}
+                    {# <a href="{{ path('user_edit', {'id': user.id})}}">Mettre à jour</a> #}
+                  <a  href="{{ path('user_edit', {'id': user.id}) }}">
+                    <img src="{{ asset ('docs/images/edit.png') }}" alt="Edit" width="25px" >
+                </a>
+
+                  <a  href="{{ path('user_delete', {'id': user.id}) }}">
+                    <img src="{{ asset ('docs/images/trash.png') }}" alt="Delete" width="25px" style="margin-left:10px" >
+                       
+                </a>
+                
+                 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">pas d'utilisateur trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_register') }}">
+    <img src="{{ asset ('docs/images/userplus.png') }}" alt="addUser" height="40px" width="40px" >
+</a>
+    {# <a href="{{ path('main_back') }}">Retour à la page d'accueil du BackOffice</a> #}
+{% endblock %}

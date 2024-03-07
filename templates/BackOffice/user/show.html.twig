@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block main %}
+<br>
+    <h1 class="text-center">Mes infos personnels</h1>
+    <br>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>E-mail</th>
+                <td>{{ user.email }}</td>
+            
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.name }}</td>
+            </tr>
+            {# <tr>
+                <th>Role</th>
+                <td>{{ app.user.role }}</td>
+            </tr> #}
+
+
+           
+        </tbody>
+    </table>
+
+     <a class="#" href="{{ path('user_edit_password', {'id': app.user.id}) }}">modifier mon mot de passe</a>
+
+   
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}">modifier mes infos personnels</a>
+
+ 
+{% endblock %}

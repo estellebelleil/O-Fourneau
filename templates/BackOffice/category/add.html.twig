@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Catégorie{% endblock %}
+
+{% block main %}
+
+<div class="container">
+        <div class="row">
+    <h1>Crée une nouvelle catégorie</h1>
+
+
+    {{ include('BackOffice/category/_form.html.twig') }}
+
+    <a href="{{ path('category_list') }}"> Retour à la liste des catégories</a>
+</div>
+        </div>
+{% endblock %}
+ 

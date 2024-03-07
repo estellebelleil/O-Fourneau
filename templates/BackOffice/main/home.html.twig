@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Administrateur!{% endblock %}
+
+{% block main %}
+<body>
+    <div class="container">
+    <br>
+    <br>
+            <h1 class="text-center">Bienvenue dans l'arrière-cuisine</h1>
+        
+    <br>
+    
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 background-image">
+            <!-- Contenu de votre page ici -->
+            <div class="text-center">
+                <!-- Contenu à centrer -->
+                <img class= "img"src="{{ asset('docs/images/image.png') }}" class="img-fluid" alt="Responsive image" width="600px">
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.img {border-radius: 1rem;}
+</style>
+    <br>
+ <p class="text-center">Vous êtes connecté au back office de votre site. C'est ici que vous pouvez gérer les contenus, les utilisateurs et les paramètres de votre site web.<br>Utilisez le menu de navigation pour commencer.</p>
+          <hr class="my-4">
+          <p class='text-center'>Si vous avez des questions ou des problèmes, n'hésitez pas à contacter le support.</p>
+        
+
+        <footer>
+            <p class='text-center'>&copy; {{ 'now'|date('Y') }} O'Fourneau</p>
+        </footer>
+    </div>
+</body>
+{% endblock %}

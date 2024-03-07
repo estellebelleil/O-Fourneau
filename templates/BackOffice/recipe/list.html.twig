@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des recettes{% endblock %}
+
+{% block main %}
+<br>
+    <h1 class= "text-center">Liste des Recettes</h1>
+<br>
+<br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Date de publication</th>
+                <th>Date de mise à jour</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe.name }}</td>
+                <td>{{ recipe.createdAt|date('d-m-Y') }}</td>
+                <td>{{ recipe.updateAt ? recipe.updateAt|date('d-m-Y') : '' }}</td>
+                <td>
+                    <a href="{{ path('recipe_show', {'id': recipe.id}) }}">
+                    <img src="{{ asset ('docs/images/show.png') }}" alt="Show" width = "30px" ></a>
+
+
+
+                    <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">
+                    <img src="{{ asset ('docs/images/edit.png') }}" alt="Modifier"  ></a>
+
+                    <a href="{{ path('recipe_delete', {'id': recipe.id}) }}">
+                    <img src="{{ asset ('docs/images/trash.png') }}" alt="Delete" width="30px" ></a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Pas de recette trouvée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('recipe_add') }}">
+    <img src="{{ asset ('docs/images/plus.png') }}" alt="Modifier" height="40px" width"40px"></a>
+    <br>
+    <br>
+
+    {# <a href="{{ path('main_back') }}">Retour à la page d'accueil du BackOffice</a> #}
+{% endblock %}

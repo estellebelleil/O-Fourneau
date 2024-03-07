@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre à jour à jour une catégorie{% endblock %}
+
+{% block main %}
+<br>
+
+    <h1 class="text-center">Mise à jour de la Catégorie</h1>
+    <br>
+
+    {{ include('BackOffice/category/_form.html.twig') }}
+<br>
+    <a href="{{ path('category_list') }}">Retour à la liste des catégories</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Recette{% endblock %}
+
+{% block main %}
+    <h1>Crée une nouvelle recette</h1>
+
+    {{ include('BackOffice/recipe/_form.html.twig') }}
+
+
+    <a href="{{ path('recipe_list') }}"> Retour à la liste des recettes</a>
+
+{% endblock %}
+ 

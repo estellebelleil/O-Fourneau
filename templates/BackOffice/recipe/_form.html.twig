@@ -1,0 +1,70 @@
+{# {% extends 'base.html.twig' %} #}
+
+{% block main %}
+{{ form_start(form) }}
+   
+    
+   
+
+  
+{{ form_end(form) }}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    
+
+
+ <script>
+
+
+const addDeleteButton = (element) => { // Fonction qui ajoute un bouton supprimer
+    const deleteButton = document.createElement('button');// Créer un élément button
+    deleteButton.innerText = 'Supprimer'; // Ajout du texte supprimer
+    deleteButton.addEventListener('click', () => { // Ajout de l'écouteur d'évènement sur le click
+        element.remove(); // Suppression de l'élément
+    });
+    element.appendChild(deleteButton);// Ajout du bouton dans l'élément
+};
+
+
+        const addIngredientLink = document.createElement('a') // Créer un élément li
+        addIngredientLink.classList.add('add_ingredient_list') // Ajout de la classe
+        addIngredientLink.innerText='Ajouter un ingrédient' // Ajout du texte
+        addIngredientLink.dataset.collectionHolderClass='inject' // Ajout de l'attribut data-collection-holder-class
+    
+
+
+        const collectionHolder = document.querySelector('.inject') // Récupération de la collectionHolder
+        collectionHolder.appendChild(addIngredientLink) // Ajout du lien dans la collectionHolder
+
+        const addFormToCollection = (e) => { // Fonction qui ajoute un formulaire dans la collection
+        	const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass); // Récupération de la collectionHolder
+
+              const item = document.createElement('a'); // Création d'un élément li
+
+              item.innerHTML = collectionHolder // Ajout du formulaire dans l'élément li
+                .dataset // Récupération du dataset
+                .prototype // Récupération du prototype
+                .replace( // Remplacement des __name__ par l'index de la collection
+                  /__name__/g, // Recherche globale
+                  collectionHolder.dataset.index// Remplacement par l'index de la collection
+                );
+
+              collectionHolder.appendChild(item); // Ajout de l'élément li dans la collectionHolder
+
+              collectionHolder.dataset.index++; // Incrémentation de l'index de la collection
+
+
+addDeleteButton(item);// Ajout du bouton supprimer
+
+
+              
+
+        };
+
+      
+        addIngredientLink.addEventListener("click", addFormToCollection) // Ajout de l'écouteur d'évènement sur le lien
+        </script>
+{% endblock %}

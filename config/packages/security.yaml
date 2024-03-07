@@ -1,0 +1,86 @@
+security:
+    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        login:
+            pattern: ^/api/login # Indique que ce firewall s'applique aux URL qui commence par /api/login
+            stateless: true # Signifie que le firewall est sans état, cad qu'il n'utilise pas de session PHP pour stocker les informations de l'utilisateur, courant dans les api ou on doit etre authentifiée a chaque requête
+            json_login: # définit la maniere dont l'auth doit etre gérée (pour ce chemin), ici authentification basée sur JSON (normal on utilsie les JWT)
+                check_path: /api/login_check # La route de notre application, ou la requête d'authentification sera envoyée, c'est la ou on va devoire faire la requete pour recuperer notre token (a l'aide de notre username et password)
+                success_handler: lexik_jwt_authentication.handler.authentication_success # Les handlers qui gerent ce qui se passe si l'auth réussit ou echoue.
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure # pareil que le success_handler
+        api: # Regle de firewall pour TOUTES les routes de l'api
+            pattern: ^/api # ici on dit que ce firewall s'applique pour TOUTES les routes qui commence par le endpoint /api
+            stateless: true # encore une fois, signifie que le firewall est sans etat (on stock rien)
+            jwt: ~ # on indique que ce firewall utilise JWT pour l'auth, toutes les requetes effectués vers l'API doivent inclure un JWT valide pour etre autorisé.
+        main:
+            lazy: true
+            provider: app_user_provider
+            custom_authenticator: App\Security\LoginAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: /
+                always_remember_me: true
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#the-firewall
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/back/user, roles: ROLE_ADMIN }
+        - { path: ^/back, roles: ROLE_MANAGER }
+        # - { path: ^/profile, roles: ROLE_USER }
+
+        - { path: ^/api/login, roles: PUBLIC_ACCESS } # indique que l'accès a la route /api/login est publique
+        - { path: ^/api/recipe/add, roles: ROLE_USER } # indique que l'acces a tout ce qui commence par /api nécéssite une authentification
+        - { path: ^/api/recipe/edit, roles: ROLE_USER }
+        - { path: ^/api/recipe/delete, roles: ROLE_ADMIN }
+        - { path: ^/api/comment/add, roles: ROLE_USER  } # indique que l'acces a tout ce qui commence par /api nécéssite une authentification
+        - { path: ^/api/comment/edit, roles: ROLE_USER }
+        - { path: ^/api/comment/delete, roles: ROLE_USER }
+        - { path: ^/api/favorite/add, roles: ROLE_USER } # indique que l'acces a tout ce qui commence par /api nécéssite une authentification
+        - { path: ^/api/favorite/show, roles: ROLE_USER }
+        - { path: ^/api/favorite/delete, roles: ROLE_USER}
+        - { path: ^/api/user/delete, roles: ROLE_ADMIN }
+        - { path: ^/api/user/show, roles: ROLE_USER }
+        - { path: ^/api/user/edit, roles: ROLE_USER }
+        
+    role_hierarchy:
+            # ROLE_ADMIN AURA LES DROITS DU ROLE_MANAGER
+            ROLE_ADMIN: ROLE_MANAGER
+            # ROLE_MANAGER AURA LES DROITS DU ROLE_USER
+            ROLE_MANAGER: ROLE_USER
+
+when@test:
+    security:
+        password_hashers:
+            # By default, password hashers are resource intensive and take time. This is
+            # important to generate secure password hashes. In tests however, secure hashes
+            # are not important, waste resources and increase test times. The following
+            # reduces the work factor to the lowest possible values.
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: auto
+                cost: 4 # Lowest possible value for bcrypt
+                time_cost: 3 # Lowest possible value for argon
+                memory_cost: 10 # Lowest possible value for argon
