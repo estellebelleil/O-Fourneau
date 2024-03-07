@@ -53,4 +53,4 @@ Création des fixtures =>  ```src/DataFixtures```
 
 ## En savoir plus sur mes projets et mon parcours ?
 
-C'est par ici : [estellebelleil.github.io](estellebelleil.github.io " Portfolio - Estelle Belleil ")
+C'est par ici : [estellebelleil.github.io](https://estellebelleil.github.io " Portfolio - Estelle Belleil ")
