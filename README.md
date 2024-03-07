@@ -10,14 +10,14 @@ Ajouter les informations liées à votre bdd dans la section DATABASE_URL :
 DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
 ```
 
-Puis lancer le composer require : 
+Puis lancer le composer : 
 ```
 composer install
 ```
 
 ## Fonctionnalités 
 
-Création et gestion des tables et de la bdd => 
+Création et gestion des tables et de la bdd
 
 => ```src/Repository```
 
@@ -43,7 +43,7 @@ Création et gestion de l'authentification et des tokens:
 
 Création des vues Twigs => ```templates```
 
-Création des formulaires pour vues Twig (côté backOffice) => ```src/Form```
+Création des formulaires pour vues Twigs (côté BackOffice) => ```src/Form```
 
 Création des services =>  ```src/Service```
 
@@ -51,6 +51,6 @@ Création des écouteurs d'évenements avec Symfony =>  ```src/EventListener```
 
 Création des fixtures =>  ```src/DataFixtures```
 
-## En savoir plus sur mes projets et mon parcours ?
+## Envie d'en savoir plus sur mes projets et mon parcours ?
 
 C'est par ici : [estellebelleil.github.io](https://estellebelleil.github.io " Portfolio - Estelle Belleil ")
