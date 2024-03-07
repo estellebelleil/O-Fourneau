@@ -3,29 +3,17 @@ Ici vous trouverez le guide d'installation du projet back d'O'Fourneau ainsi que
 
 ### Installation du projet
 
-```
-composer require symfony/runtime
-```
-Puis copier coller les données contenu dans le .envExemple et créer un fichier .env
+Créer un fichier .env depuis le modèle .envExemple
 
 Ajouter les informations liées à votre bdd dans la section DATABASE_URL : 
 ```
 DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
 ```
-### Pour activer les tokens et l'identification : 
 
- Installer LexikJWTAuthenticationBundle
-```bash
-composer require "lexik/jwt-authentication-bundle" 
+Puis lancer le composer require : 
 ```
-
-Générez notre clé privé et publique:
-
+composer require symfony/runtime
 ```
-php bin/console lexik:jwt:generate-keypair 
-```
-
-Maintenant dans le dossier /config, vous avez un nouveau dossier jwt/ qui vient d'être crée avec deux fichiers jwt créés. Ces 2 clés vont permettre (avec la PASSPHRASE) de "signer" les token d'authentification que j'enverrais aux utilisateurs qui ont accès au site.
 
 ## Fonctionnalités 
 
