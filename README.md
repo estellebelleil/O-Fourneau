@@ -12,7 +12,7 @@ DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=10.11.2-Ma
 
 Puis lancer le composer require : 
 ```
-composer require symfony/runtime
+composer install
 ```
 
 ## Fonctionnalités 
