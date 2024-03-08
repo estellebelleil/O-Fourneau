@@ -1,5 +1,5 @@
 # Bienvenue sur le projet backend d' O'Fourneau 
-Ici vous trouverez le guide d'installation du projet back d'O'Fourneau ainsi que le récapitulatif des fonctionnalités mises en place dans l'application. Le projet a été réalisé techniquement parlant en deux semaines et demi. Nous étions quatre collaborateurs : deux développeurs backend et deux développeurs frontend. J'ai été lead back-end et me suis occupée majoritairement de la création intégrale de la BDD (avec relation associées et tables pivots), des entités, des API, des controllers, de l'authentification et de la sécurité, des services et de la gestion des conflits et bugs.
+Ici vous trouverez le guide d'installation du projet back d'O'Fourneau ainsi que le récapitulatif des fonctionnalités mises en place dans l'application. Le projet a été réalisé techniquement parlant en deux semaines et demi. Nous étions quatre collaborateurs : deux développeurs backend et deux développeurs frontend. Côté back-end, nous avons élaboré l'intégralité des fonctionnalités back d'O'Fourneau à savoir la création intégrale de la BDD (avec relation associées et tables pivots), des entités,  des controllers, des API,de l'authentification et de la sécurité, du backoffice et des formulaires associés, des services et de la gestion des conflits et bugs.
 
 ### Installation du projet
 
@@ -17,7 +17,7 @@ composer install
 
 ## Fonctionnalités 
 
-Création et gestion des tables et de la bdd
+Création et gestion des tables et de la bdd : 
 
 => ```src/Repository```
 
