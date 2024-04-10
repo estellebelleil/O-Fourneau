@@ -28,7 +28,7 @@ class UstensilRepository extends ServiceEntityRepository
     {
         // On récupère la connexion à la base SQL afin de pouvoir gérer entièrement l'envoie de la requête
         $conn = $this->getEntityManager()->getConnection();
-        // Etape 2 : on construit la requete DQL
+        // Etape 2 : on construit la requete
         $query = 'SELECT * FROM recipe_ustensil
             WHERE recipe_id =:idRecipe';
         // On prépare manuellement la requête

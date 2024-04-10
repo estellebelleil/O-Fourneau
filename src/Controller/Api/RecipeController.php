@@ -42,7 +42,7 @@ class RecipeController extends AbstractController
         return $this->json(
             $recipes,
             200,
-            [''],
+            ['Données envoyées'],
             ['groups' => 'get_recipes'] // je veux que le groupe get_recipes soit utilisé
         );
     }
@@ -90,7 +90,7 @@ class RecipeController extends AbstractController
      * @return Response
      */
     #[Route('api/recipe/add', name: 'api_recipe_add', methods: ['POST'])]
-    public function create(Request $request, ValidatorInterface $validator,  ParameterBagInterface $params, EntityManagerInterface $entityManager, MySlugger $slugger,SerializerInterface $serializer, IngredientRepository $ingredientRepository, UstensilRepository $ustensilRepository, TagRepository $tagRepository, CategoryRepository $categoryRepository, QuantityRepository $quantityRepository): Response
+    public function create(Request $request, ValidatorInterface $validator, EntityManagerInterface $entityManager, MySlugger $slugger,SerializerInterface $serializer, IngredientRepository $ingredientRepository, UstensilRepository $ustensilRepository, TagRepository $tagRepository, CategoryRepository $categoryRepository, QuantityRepository $quantityRepository): Response
     {
         $content = $request->getContent(); // je récupère le contenu de la requête
         $data = json_decode($content, true); // je décode le contenu JSON en tableau associatif
@@ -101,7 +101,7 @@ class RecipeController extends AbstractController
         $recipe->setPicture($data['picture']);
         $recipe->setStep($data['step']);
         $recipe->setCreatedAt(new DateTimeImmutable());
-
+        
             //AJOUTE DES USTENSILS DANS MA RECETTE CRÉÉE
             if (isset($data['ustensil']) && is_array($data['ustensil'])) {
                 $ustensils = []; // Créer un tableau pour stocker les objets Ustensil
@@ -174,7 +174,11 @@ class RecipeController extends AbstractController
         else
         {
             $entityManager->flush();
-            return $this->json($recipe, 201, [], ['groups' => 'get_recipes']); //je retourne le code Json avec la nouvelle recette et le code de la requête
+            return $this->json(
+                $recipe, 
+                201, 
+                [], 
+                ['groups' => 'get_recipes']); //je retourne le code Json avec la nouvelle recette et le code de la requête
         }
 
     }
@@ -193,7 +197,7 @@ class RecipeController extends AbstractController
         $recipe = $recipeRepository->find($id); // je recupere la recette
         $user = $this->getUser();
         $content = $request->getContent();
-        $data = json_decode($content, true); // je décode le contenu JSON en tableau associatif
+        $data = json_decode($content, true); // je décode le contenu JSON
         
         //Ici je viens d'abord vérifier si l'utilisateur qui souhaite modifier la recette est bien celui qui l'a créée ou l'admin. S'il ne l'est pas, il a un message d'erreur
         if ($user !== $recipe->getUser() && !$this->isGranted('ROLE_ADMIN')) 
@@ -217,12 +221,12 @@ class RecipeController extends AbstractController
 
 
             
-            // EDITER LES QUANTITÉS D INGREDIENT (AJOUT/SUPPRESSION) essai
+            // EDITER LES QUANTITÉS D INGREDIENT (AJOUT/SUPPRESSION)
             //Ici je viens récupérer par l'id de la recette, les quantités associées depuis mon entité entité
             $quantitiesFromBdd = $quantityRepository->findByRecipeId($id);
             //Ici je viens récupérer les valeurs envoyées part ma request de quantities
             $quantitiesfromRequest =  $data['quantities'];
-                
+                //dd($quantitiesfromRequest);
                 //Ici je viens boucler sur toutes les quantités associées à cette recette
                 foreach ($quantitiesFromBdd as $quantityFromBdd)
                 {
@@ -249,7 +253,7 @@ class RecipeController extends AbstractController
                                     //J'enregistre les modifications en bdd
                                     $entityManager->persist($quantityObject);
                                 }
-                                // Si l'élement a été trouvé, on le supprime de la liste des quantités à vérifier
+                                // Si l'élement a été trouvé, on le supprime de la liste des quantités à vérifier. Ici grace à cette fonction j'appelle le tableau quantities, je lui donne l'ordre de suppression et j'informe vouloir supprimer un élément du tableau depuis l'indice key
                                 array_splice($quantitiesfromRequest,$key,1);
                                 //J'arrete la boucle si je suis rentrée dans ma condition primaire. 
                                 break;
@@ -316,7 +320,7 @@ class RecipeController extends AbstractController
                             {
                                 $recipe->addUstensil($ustensil);
                             }
-                        }
+                        } 
 
 
             //EDITER UN TAG (AJOUT/SUPPRESSION)
@@ -375,7 +379,7 @@ class RecipeController extends AbstractController
         else
         {
             $entityManager->flush();
-            return $this->json($recipe, 201, [], ['groups' => 'get_recipes']); //je retourne le code Json avec la nouvelle recette et le code de la requête
+            return $this->json($recipe, 201, [], ['groups' => 'get_recipes']); //je retourne le code Json avec les modifcations de la recette et le code de la requête
         }
     }
 //}

@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\Tip;
+use App\Repository\RecipeRepository;
 use App\Repository\TipRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,8 +17,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class UploadPictureController extends AbstractController
 {
-        /**
-     * Route pour uploader une img
+    /**
+     * UPLOADER UNE IMAGE
      *
      * @return Response
      */
@@ -26,6 +27,7 @@ class UploadPictureController extends AbstractController
     {
         //AJOUTER DES IMAGES UPLOADEES
         $image = $request->files->get('file');
+
         //dd($image);
         // enregistrement de l'image dans le dossier public du serveur
         // paramas->get('public') =>  va chercher dans services.yaml la variable public
@@ -37,6 +39,26 @@ class UploadPictureController extends AbstractController
         return $this->json($newFilename, 200, ['message' => 'Image uploaded successfully.']);
 
     }
+    
+
+    /**
+     * SUPPRIMER UNE IMAGE UPLOADÉE SI ELLE N'EST PAS UTILISÉE (En cours)
+     *
+     * @return Response
+     */
+    /*#[Route('api/recipe/upload/delete', name: 'api_recipe_upload_delete', methods: ['DELETE'])]
+    public function deleteImgUseless(Request $request, ParameterBagInterface $params, RecipeRepository $recipeRepository)
+    {
+        //Je viens récupérer le dossier contenant toutes mes images
+        $imagesfile = scandir($params->get('pictures_directory'));
+        
+        $imagesFromBdd = $recipeRepository->pictureFromRecipe();
+        dd($imagesFromBdd);
+    
+    }
+*/
+
+
 
 
 }

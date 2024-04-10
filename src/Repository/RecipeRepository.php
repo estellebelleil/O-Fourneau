@@ -96,7 +96,16 @@ class RecipeRepository extends ServiceEntityRepository
         
             return $recipe;
         }
-
+        public function pictureFromRecipe()
+        {
+            $sql = "SELECT picture FROM recipe";
+            $conn = $this->getEntityManager()->getConnection();
+            $resultSet = $conn->executeQuery($sql);
+    
+            // permet de récupérer les infos dans un seul et unique tableau (contrairement à fetchAllAssociative qui créer un tableau contenant un tableau pour chaque entrée)
+            return $resultSet->fetchFirstColumn();
+            
+        }
 //    /**
 //     * @return Recipe[] Returns an array of Recipe objects
 //     */

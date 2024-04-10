@@ -18,28 +18,26 @@ final class UpdateRatingRecipeFromCommentsListener
      */
     public function postUpdate(Comment $comment, PostUpdateEventArgs $event): void
     {
-        // 1ere etape : on recupere le recipe via $comment
+        // 1ere etape : on récupere la recipe via $comment
         $recipe = $comment->getRecipe();
-        // 2eme etape : on calcule la note globale de tous les Comments du film
-        // Je créer une variable $allNotes egal a 0
-        // Cette variable sera egal à la somme de toutes les notes d'un film
+        // 2eme etape : on calcule la note globale de tous les commentaires de la recette
+        // Je créé une variable $allNotes égale à 0
+        // Cette variable sera égale à la somme de toutes les notes de la recette
         $allNotes = 0;
-        // Je boucle sur toutes les Comments d'un film
+        // Je boucle sur toutes les commentaires de la recette
         foreach ($recipe->getComments() as $comment) {
             $allNotes = $allNotes + $comment->getRate();
         }
         if($allNotes == 0 )
         {
             $recipe->setRate(0);
-
         }
         else
         {
-            // Pour une moyenne on divise le nombre total par le nombre de note
+            // Pour une moyenne on divise le nombre total par le nombre de notes
             $average = $allNotes / count($recipe->getComments());        
             $recipe->setRate($average);
         }
-
         // Pour récupérer l'entityManager : https://symfony.com/doc/current/doctrine/events.html#doctrine-lifecycle-listeners
         $entityManager = $event->getObjectManager();
         // Et grace a l'entityManager, je peux flush

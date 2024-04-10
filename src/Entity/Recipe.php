@@ -12,7 +12,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
-#[ORM\HasLifecycleCallbacks]
 class Recipe
 {
     #[ORM\Id]
@@ -68,9 +67,6 @@ class Recipe
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Comment::class)]
 
-
-
-
     #[Groups(['get_recipes', 'get_users'])]
     private Collection $comments;
 
@@ -82,7 +78,6 @@ class Recipe
         maxMessage: 'Vous ne pouvez pas dépasser 25 ingrédients'
     )]
     #[Groups(['get_recipes', 'get_ingredients', 'get_users'])]
-
     private Collection $quantities;
 
     #[ORM\Column(nullable: true)]

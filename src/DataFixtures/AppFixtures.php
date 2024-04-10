@@ -173,8 +173,8 @@ class AppFixtures extends Fixture
                 //Ajouter des commentaires
                 $listComment = [];
                 for ($i = 0; $i < 3; $i++)  {
-                $comment = new Comment(); // Je créer une instance de l'entité Casting
-                $comment->setContent($faker->text(200)); // Je définis un role interprété
+                $comment = new Comment(); // Je créer une instance de l'entité Comment
+                $comment->setContent($faker->text(200)); // Je définis une note
                 $comment->setRate(rand(0,5));
                 $comment->setCreatedAt(new DateTimeImmutable());
                 $comment->setUser($listUser[rand(0,4)]);
