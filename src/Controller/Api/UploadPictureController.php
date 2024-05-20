@@ -37,6 +37,21 @@ class UploadPictureController extends AbstractController
         return $this->json($newFilename, 200, ['message' => 'Image uploaded successfully.']);
 
     }
-
+    /**
+     * SUPPRIMER UNE IMAGE UPLOADÉE SI ELLE N'EST PAS UTILISÉE
+     * *EN COURS
+     *
+     * @return Response
+     */
+    /*
+    #[Route('api/recipe/upload/delete', name: 'api_recipe_upload_delete', methods: ['DELETE'])]
+    public function deleteImgUseless(Request $request, ParameterBagInterface $params, RecipeRepository $recipeRepository)
+    {
+        //Je viens récupérer le dossier contenant toutes mes images
+        $imagesfile = scandir($params->get('pictures_directory'));
+        
+        $imagesFromBdd = $recipeRepository->pictureFromRecipe();
+        dd($imagesFromBdd);
+*/
 
 }
